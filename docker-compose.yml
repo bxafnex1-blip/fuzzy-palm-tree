@@ -6,7 +6,11 @@ services:
     ports:
       - "8989:8080"
     stdin_open: true
-    tty: true                     #using bash TTY mode (pseudo-TTY)
-    # ENHANCEMENT: Mount a local workspace folder so your code persists
+    tty: true
+    privileged: true              # CRITICAL: Allows WARP to create network tunnels
+    cap_add:
+      - NET_ADMIN                 # CRITICAL: Gives permission to route proxy traffic
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0 # WARP sometimes requires IPv6 enabled to connect
     volumes:
       - ./workspace:/workspace
