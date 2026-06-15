@@ -7,19 +7,19 @@ services:
       - "8989:8080"
     stdin_open: true
     tty: true
-    privileged: true              # CRITICAL: Allows WARP to create network tunnels
+    privileged: true              
     cap_add:
-      - NET_ADMIN                 # CRITICAL: Gives permission to route proxy traffic
+      - NET_ADMIN
+      - SYS_MODULE
+    devices:
+      - /dev/net/tun:/dev/net/tun   # CRITICAL: Required for WARP/WireGuard tunnel
     sysctls:
-      - net.ipv6.conf.all.disable_ipv6=0 
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.src_valid_mark=1 # CRITICAL: Required for proxy routing
     volumes:
       - ./workspace:/workspace
-
-# ----------------------------------------------------
-# CRITICAL FIX: Lowering the MTU to prevent SSL drops
-# ----------------------------------------------------
 networks:
   default:
     driver: bridge
     driver_opts:
-      com.docker.network.driver.mtu: 1350
+      com.docker.network.driver.mtu: 1280
