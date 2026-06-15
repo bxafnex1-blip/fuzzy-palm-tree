@@ -10,7 +10,7 @@ RUN apt-get update && \
     curl ca-certificates wget git htop screen nano vim jq zip unzip \
     python3-minimal python3-pip python3-venv build-essential \
     fzf ripgrep bat tree net-tools dnsutils gnupg \
-    iptables iproute2 iputils-ping resolvconf dbus kmod && \
+    iptables iproute2 iputils-ping dbus kmod && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y --no-install-recommends nodejs && \
     curl -sLk https://github.com/sorenisanerd/gotty/releases/download/${GOTTY_TAG_VER}/gotty_${GOTTY_TAG_VER}_linux_amd64.tar.gz \
