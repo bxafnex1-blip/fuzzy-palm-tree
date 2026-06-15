@@ -10,16 +10,12 @@ RUN apt-get update && \
     curl ca-certificates wget git htop screen nano vim jq zip unzip \
     python3-minimal python3-pip python3-venv build-essential \
     fzf ripgrep bat tree net-tools dnsutils gnupg \
-    iptables iproute2 iputils-ping && \
-    # Install Node.js v20
+    iptables iproute2 iputils-ping resolvconf dbus kmod && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y --no-install-recommends nodejs && \
-    # Install GoTTY
     curl -sLk https://github.com/sorenisanerd/gotty/releases/download/${GOTTY_TAG_VER}/gotty_${GOTTY_TAG_VER}_linux_amd64.tar.gz \
     | tar xzC /usr/local/bin && \
-    # Setup 'bat' command alias
     mkdir -p ~/.local/bin && ln -s /usr/bin/batcat ~/.local/bin/bat && \
-    # Aggressive cleanup
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -27,7 +23,6 @@ RUN echo 'export PATH=$HOME/.local/bin:$PATH' >> /root/.bashrc && \
     echo 'export PS1="\\[\\e[36m\\]\\u@gotty\\[\\e[m\\]:\\[\\e[32m\\]\\w\\[\\e[m\\]\\$ "' >> /root/.bashrc
 
 COPY /run_gotty.sh /run_gotty.sh
-
 RUN chmod 744 /run_gotty.sh
 
 WORKDIR /workspace
