@@ -1,0 +1,6 @@
+# Ignore absolutely everything
+*
+
+# EXCEPT the two files strictly required for the build
+!Dockerfile
+!run_gotty.sh
