@@ -1,7 +1,1 @@
-services:
-  my-gotty:
-    build: .
-    ports:
-      - "8989:8080"
-    stdin_open: true
-    tty: true
+
