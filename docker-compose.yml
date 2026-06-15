@@ -11,6 +11,15 @@ services:
     cap_add:
       - NET_ADMIN                 # CRITICAL: Gives permission to route proxy traffic
     sysctls:
-      - net.ipv6.conf.all.disable_ipv6=0 # WARP sometimes requires IPv6 enabled to connect
+      - net.ipv6.conf.all.disable_ipv6=0 
     volumes:
       - ./workspace:/workspace
+
+# ----------------------------------------------------
+# CRITICAL FIX: Lowering the MTU to prevent SSL drops
+# ----------------------------------------------------
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1350
