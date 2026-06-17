@@ -1,12 +1,8 @@
-version: "3.9"
-services:
-  my-gotty:
-    build: .
-    hostname: mygotty
-    ports:
-      - "8989:8080"
-    stdin_open: true
-    tty: true                     #using bash TTY mode (pseudo-TTY)
-    # ENHANCEMENT: Mount a local workspace folder so your code persists
-    volumes:
-      - ./workspace:/workspace
+my-gotty:
+  hostname: mygotty
+  ports:
+  - 8989:8080
+  tty: true
+  image: modenaf360/gotty:latest
+  stdin_open: true
+  tty: true                     #using bash TTY mode (pseudo-TTY)
